@@ -1,17 +1,9 @@
-# new_horizons_api
+# New Horizons API
 
-A new Flutter project.
+A NASA modern Horizons API abstraction layer. Hecho en Puerto Rico por Radamés Jomuel Valentín Reyes.
 
-## Getting Started
+## API Overview
+This API makes use of graphene_server which means that all requests and responses are in BSON format. Every request is of type POST. Every request must be sent to the path /graphene since it is a single endpoint API.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Requests
+- 
