@@ -3,7 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphene_server/graphene_server.dart';
 import 'widgets.dart';
-import 'dart:convert';
+import 'package:http/http.dart';
+import 'package:nasa_horizons_parser/nasa_horizons_parser.dart';
 
 class Dashboard extends StatefulWidget {
   const new({
@@ -31,7 +32,32 @@ class _DashboardState extends State<Dashboard> {
         },
       ), 
       query: GrapheneQuery(
-        resolver: {},
+        resolver: {
+          "listMajorBodies": (arguments)async{
+            //TODO: Send request, parse data, format it and return it
+            Response response = await get(Uri.parse("https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND='MB'"));
+            List<MajorBody> majorBodies = parseMajorBodiesList(nasaHorizonsApiResponse: response.body);
+            List<Map<String,dynamic>> majorBodiesAsMap = [];
+            for(MajorBody majorBody in majorBodies){
+              majorBodiesAsMap.add({
+                "id": majorBody.id,
+                "name": majorBody.name,
+                "designation": majorBody.designation,
+                "iau": majorBody.iau,
+              });
+            }
+            return majorBodiesAsMap;
+          },
+          "getMajorBodyEphemerisData":(arguments)async{
+            int bodyID = arguments["bodyID"];
+            DateTime startTime = DateTime.parse(arguments["startTime"]);
+            DateTime stopTime = DateTime.parse(arguments["stopTime"]);
+            int simulationSteps = arguments["simulationSteps"];
+            String simulationStepsUnit = arguments["simulationStepsUnit"];
+            Response response = await get(Uri.parse("https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=$bodyID&EPHEM_TYPE=VECTORS&START_TIME=${startTime.year}-${startTime.month.toString().padLeft(2,"0")}-${startTime.day.toString().padLeft(2,"0")}&STOP_TIME=${stopTime.year}-${stopTime.month.toString().padLeft(2,"0")}-${stopTime.day.toString().padLeft(2,"0")}&STEP_SIZE=$simulationSteps $simulationStepsUnit&MAKE_EPHEM=YES"));
+            
+          }
+        },
       ), 
       mutations: GrapheneMutation(
         resolver: {},

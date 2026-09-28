@@ -33,6 +33,8 @@ dependencies:
   cherry_toast: ^1.13.0
   bson: ^5.0.8
   graphene_server: ^0.2.1+22
+  nasa_horizons_parser: ^0.0.1
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:
