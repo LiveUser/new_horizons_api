@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//TODO: Pick the server port and Navigate to next page
+//Pick the server port and Navigate to next page
 class HomePage extends StatefulWidget {
   const new({super.key});
 
@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               onTap: (){
                 try{
                   int port = int.parse(serverPort.text);
-                  //TODO: Navigate to next page
+                  //Navigate to next page
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) => Dashboard(
                       serverPort: port,
